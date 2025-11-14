@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Visualizza form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h2>Visualizza i dati del form</h2>
+  <form id="dati" action="#">
+    <label><b>Cognome</b></label><br/>
+    <input type="text" name="cognome"><br/>
+    <label><b>Nome</b></label><br/>
+    <input type="text" name="nome"><br/>
+    <label><b>Indirizzo</b></label><br/>
+    <input type="text" name="indirizzo">
+    <input type="submit" name='invia' value="Invia">
+  </form>
+  <p>Clicca il bottone "Visualizza" per visualizzare i valori inseriti, prima dell'invio dei dati.</p>
+  <button onclick="visualizza()">Visualizza</button>
+  <p id="console"></p>
+
+  <script>
+    // La funzione visualizza legge il form con name/id "dati" e costruisce
+    // una stringa con i valori di ciascun elemento (tranne il submit).
+    // Spiega: usiamo document.forms["dati"] per ottenere il form,
+    // poi cicliamo sugli elementi e leggiamo .value.
+    function visualizza() {
+      var v = document.forms["dati"]; // ottengo il form
+      var text = "";
+      // v.length include anche l'elemento submit, quindi -1 per evitarlo
+      for (var i = 0; i < v.length - 1; i++) {
+        text += v.elements[i].value + "<br>";
+      }
+      document.getElementById("console").innerHTML = text;
+    }
+  </script>
+</body>
+</html>

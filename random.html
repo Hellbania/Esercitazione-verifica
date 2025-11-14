@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Genera numero casuale</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h2>Generatore casuale (esercizio)</h2>
+  <label>Inserire  num max  da generare...</label><br>
+  <input type="text" id="testo">
+  <button onclick="resetta()" value="cancella">cancella</button>
+  <button onclick="genera()" id="bottone">Genera casuale numero</button>
+  <p id="console"></p>
+
+  <script>
+    function genera() {
+      var ct = document.getElementById("testo"); // commenta qui: prendo il riferimento all'input
+      var consoleEl = document.getElementById("console"); // commenta qui: prendo il riferimento al paragrafo di output
+      if (ct.value == "")
+        consoleEl.innerHTML = "inserire il valore massimo da generare.";
+      else {
+        var num_max = ct.value; // commenta qui: uso il valore dell'input come massimo
+        var num_generato = Math.floor((Math.random() * num_max) + 1); //commenta qui: genero un numero intero casuale tra 1 e num_max
+        consoleEl.innerHTML = "IL numero casuale estratto è: " + num_generato; //commenta qui: mostro il risultato
+      }
+    }
+    function resetta() {
+      document.getElementById("testo").value = "";
+      document.getElementById("console").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
