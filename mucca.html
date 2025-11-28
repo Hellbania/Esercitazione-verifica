@@ -4,10 +4,15 @@
   <meta charset="utf-8">
   <title>Pagina effetti speciali</title>
   <style>
-    body { padding: 20px; }
+    body { 
+      padding: 20px; 
+      background-color: darkorange; 
+      color: GhostWhite;
+    }
     #message { margin: 10px 0; font-weight: bold; }
-    #artCanvas { border: 1px solid #ccc; margin-top: 10px; }
+    #artCanvas { border: 1px solid #ccc; margin-top: 10px; background-color: white; }
     button { padding: 8px 12px; }
+    a { color: GhostWhite; }
   </style>
 </head>
 <body>
@@ -49,6 +54,7 @@
 
     function drawTriangle(x, y) {
       ctx.fillStyle = '#2b6cb0';
+      // Triangolo che punta verso l'alto
       for(let r = 0; r < 8; r++)
         for(let c = 0; c <= r; c++)
           ctx.fillRect(x + c * squareSize, y + r * squareSize, squareSize - 1, squareSize - 1);
@@ -56,12 +62,14 @@
 
     function drawRhombo(x, y) {
       ctx.fillStyle = '#d53f8c';
+      // Parte superiore del rombo (punta su)
       for(let r = 0; r < 6; r++) {
         const count = r * 2 + 1;
         const sx = x + (5 - r) * squareSize;
         for(let c = 0; c < count; c++)
           ctx.fillRect(sx + c * squareSize, y + r * squareSize, squareSize - 1, squareSize - 1);
       }
+      // Parte inferiore del rombo (punta giù)
       for(let r = 4; r >= 0; r--) {
         const count = r * 2 + 1;
         const sx = x + (5 - r) * squareSize;
