@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pagina effetti speciali</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding: 20px; }
+    h1 { margin-bottom: 12px; }
+    #message { margin: 12px 0; font-weight: bold; }
+    #artCanvas { border: 1px solid #ccc; display: block; margin-top: 12px; }
+    button { padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <h1>Pagina effetti speciali</h1>
+
+  <button id="magicBtn">testo a sorpresa</button>
+  <div id="message" aria-live="polite"></div>
+  <canvas id="artCanvas" width="520" height="220"></canvas>
+
+  <p><a href="index.html">Torna all'index</a></p>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('magicBtn');
+      const msg = document.getElementById('message');
+      const canvas = document.getElementById('artCanvas');
+      const ctx = canvas.getContext('2d');
+      let step = 0;
+
+      // variabile che controlla la larghezza dei quadratini
+      const squareSize = 18;
+
+      btn.addEventListener('click', () => {
+        if(step === 0) {
+          // primo click: mostra il testo
+          msg.textContent = 'PEPPEREPE';
+          btn.textContent = 'nuova sorpresa';
+          step = 1;
+        } else if(step === 1) {
+          // secondo click: alert
+          alert('TADAAAA!');
+          btn.textContent = 'E ora un bel disegno';
+          step = 2;
+        } else if(step === 2) {
+          // terzo click: disegno
+          clearCanvas();
+          drawTriangle(ctx, 8, squareSize, 10, 10);
+          drawRhombo(ctx, 6, squareSize, 260, 20);
+          btn.textContent = 'Torna a capo';
+          step = 3;
+        } else {
+          // quarto click: reset
+          msg.textContent = '';
+          clearCanvas();
+          btn.textContent = 'testo a sorpresa';
+          step = 0;
+        }
+      });
+
+      function clearCanvas(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+      }
+
+      // Disegna un triangolo (metodo con due cicli for)
+      // rows: numero di righe, size: dimensione quadratino, offsetX/Y: posizione iniziale
+      function drawTriangle(ctx, rows, size, offsetX, offsetY){
+        ctx.fillStyle = '#2b6cb0';
+        for(let r=0; r<rows; r++){
+          for(let c=0; c<=r; c++){
+            const x = offsetX + c*size;
+            const y = offsetY + r*size;
+            ctx.fillRect(x, y, size-1, size-1);
+          }
+        }
+      }
+
+      // Disegna un rombo (diamante) usando due cicli for per la parte superiore e inferiore
+      // radius: semialtezza del rombo (numero di righe della mezza parte)
+      function drawRhombo(ctx, radius, size, offsetX, offsetY){
+        ctx.fillStyle = '#d53f8c';
+        // parte superiore (includendo la riga centrale)
+        for(let r=0; r<radius; r++){
+          const count = r*2+1;
+          const startX = offsetX + (radius - r - 1)*size;
+          const y = offsetY + r*size;
+          for(let c=0; c<count; c++){
+            const x = startX + c*size;
+            ctx.fillRect(x, y, size-1, size-1);
+          }
+        }
+        // parte inferiore (escludendo la riga centrale)
+        for(let r=radius-2; r>=0; r--){
+          const count = r*2+1;
+          const startX = offsetX + (radius - r - 1)*size;
+          const y = offsetY + (2*radius - r -2)*size;
+          for(let c=0; c<count; c++){
+            const x = startX + c*size;
+            ctx.fillRect(x, y, size-1, size-1);
+          }
+        }
+      }
+
+    })();
+  </script>
+</body>
+</html>
